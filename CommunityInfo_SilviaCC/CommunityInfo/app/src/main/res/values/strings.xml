@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Community Info</string>
+    <string name="eslogan">Plataforma de comunicación eficiente para tu comunidad</string>
+    <string name="descripcion_inicio">Aplicacion creada por una estudiante</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_comunicados">Comunicados</string>
+    <string name="title_reservas">Reservas</string>
+</resources>
