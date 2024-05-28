@@ -1,6 +1,5 @@
 package com.example.communityinfo.Fragments;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.communityinfo.Inicio;
-import com.example.communityinfo.Principal;
 import com.example.communityinfo.R;
 import com.google.firebase.auth.FirebaseAuth;
 

@@ -1,5 +1,4 @@
-package com.example.communityinfo.Fragments;
-
+package com.example.communityinfo;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.communityinfo.R;
+
 
 public class Comunicados extends Fragment {
     private View view;
