@@ -3,30 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:paddingTop="5dp"
-    android:paddingBottom="8dp"
+    android:paddingBottom="18dp"
     android:paddingLeft="5dp"
-    android:layout_marginTop="5dp"
+    android:paddingRight="5dp"
+    android:layout_marginTop="7dp"
     android:layout_marginBottom="5dp"
     android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp" >
+    android:layout_marginRight="15dp" >
 
     <TextView
         android:id="@+id/tv_fecha"
-        android:layout_width="1000dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="290dp"
+        android:layout_width="86dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:paddingLeft="1dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="2dp"
         android:text="Fecha"
+        android:layout_toRightOf="@id/tv_titulo"
         android:textColor="#000000"
-        android:textSize="19sp"
+        android:textSize="15sp"
         android:textStyle="normal"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/tv_titulo"
-        android:layout_width="275dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"

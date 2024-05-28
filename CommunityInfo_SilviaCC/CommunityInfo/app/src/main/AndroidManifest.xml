@@ -19,6 +19,15 @@
         android:theme="@style/Theme.CommunityInfo"
         tools:targetApi="31">
         <activity
+            android:name=".Users.ActivitiesUser.ModificarReserva"
+            android:exported="false" />
+        <activity
+            android:name=".Users.ActivitiesUser.CrearReserva"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.PrincipalAdmin"
+            android:exported="false" />
+        <activity
             android:name=".Inicio"
             android:exported="false" />
         <activity
@@ -28,10 +37,9 @@
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".Principal"
+            android:name=".Users.ActivitiesUser.Principal"
             android:exported="false"
-            android:label="@string/title_comunicados"/>
-
+            android:label="@string/title_comunicados" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -3,16 +3,24 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="blueBackground">#039BE5</color>
-    <color name="azul">#3B84F3</color>
-    <color name="purple">#A02B93</color>
+    <color name="blue_1">#039BE5</color>
+    <color name="blue_2">#1080ec</color>
+    <color name="blue_3">#19a1f9</color>
+    <color name="purple">#30017c</color>
+    <color name="violet">#b711e6</color>
+    <color name="magenta">#A02B93</color>
     <color name="granate">#9B2971</color>
     <color name="blueGround">#0E2841</color>
-    <color name="grisClaro">#EAEAEA</color>
+    <color name="graySoft">#EAEAEA</color>
+    <color name="grayDark">#506272</color>
+    <color name="blueSoft">#664FC8FF</color>
+    <color name="blueDark">#001e3b</color>
+    <color name="blueDark_2">#0E2841</color>
 
-    <color name="dark_blue">#153464</color>
-    <color name="dark_dark_blue">#010130</color>
-    <color name="blue">#112B52</color>
-
+    <!--quitar de DOCUMENTACION pink mate-->
+    <!-- COLORES ESTADO -->
+    <color name="red">#FD0D0D</color>
+    <color name="orange">#FF8400</color>
+    <color name="blue">#0027FF</color>
 
 </resources>

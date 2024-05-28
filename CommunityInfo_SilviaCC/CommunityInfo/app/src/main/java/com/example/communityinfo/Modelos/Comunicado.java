@@ -1,7 +1,7 @@
 package com.example.communityinfo.Modelos;
 
 public class Comunicado {
-    private long fecha;
+    private long fecha; // es una fecha en Epoch timestamp
     private String titulo;
     private String asunto;
     private String contenido;

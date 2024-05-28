@@ -5,17 +5,81 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blueBackground"
-    tools:context=".Fragments.Reservas">
+    android:background="@color/blueSoft"
+    tools:context=".Users.FragmentsUser.Reservas">
 
-    <TextView
-        android:id="@+id/txtPrueba2"
-        android:layout_width="141dp"
-        android:layout_height="46dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="300dp"
-        android:text="Reservas"
-        android:textColor="@color/white"
-        android:textSize="25dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbarReservas"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/blueDark"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="Reservas"
+            app:titleTextColor="@color/white" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="680dp">
+
+            <CalendarView
+                android:id="@+id/calendarViewUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_listadoReservasUsers"
+                android:layout_width="350dp"
+                android:layout_height="284dp"
+                android:background="@color/blue_2"
+                android:layoutAnimation="@anim/comunicado_animation"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/calendarViewUser"
+                app:layout_constraintVertical_bias="0.261" />
+
+            <TextView
+                android:id="@+id/tv_SinDatos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="No hay reservas disponibles"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/rv_listadoReservasUsers"
+                app:layout_constraintEnd_toEndOf="@+id/rv_listadoReservasUsers"
+                app:layout_constraintStart_toStartOf="@+id/rv_listadoReservasUsers"
+                app:layout_constraintTop_toTopOf="@+id/rv_listadoReservasUsers"
+                tools:ignore="MissingConstraints" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:contentDescription="@string/add_reservation"
+                android:src="@android:drawable/ic_input_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.923"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.95" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

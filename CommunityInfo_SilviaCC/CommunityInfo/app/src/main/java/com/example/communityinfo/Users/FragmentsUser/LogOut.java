@@ -1,4 +1,4 @@
-package com.example.communityinfo.Fragments;
+package com.example.communityinfo.Users.FragmentsUser;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.communityinfo.Inicio;
 import com.example.communityinfo.R;
+import com.example.communityinfo.Users.ActivitiesUser.Principal;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LogOut extends Fragment {

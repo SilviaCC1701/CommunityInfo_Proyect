@@ -7,4 +7,5 @@
 
     <string name="title_comunicados">Comunicados</string>
     <string name="title_reservas">Reservas</string>
+    <string name="add_reservation">AddReserva</string>
 </resources>

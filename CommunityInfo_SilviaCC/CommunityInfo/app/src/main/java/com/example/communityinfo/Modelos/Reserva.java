@@ -1,28 +1,40 @@
 package com.example.communityinfo.Modelos;
 
 public class Reserva {
-    private long fechaHora;
+    private String id;
+    private long fechaReserva;
     private String areaUbicacion;
-    private long horaInicio;
-    private long horaFin;
+    private String horaInicio;
+    private String horaFin;
     private String motivo;
+    private String usuarioId;
     // CONSTRUCTORES
     public Reserva(){ /* Construcctor vacio para Firebase */ }
-    public Reserva(long fechaHora, String areaUbicacion, long horaInicio, long horaFin, String motivo){
-        this.fechaHora = fechaHora;
+    public Reserva(String id, long fechaReserva, String areaUbicacion, String horaInicio, String horaFin, String motivo, String usuarioId) {
+        this.id = id;
+        this.fechaReserva = fechaReserva;
         this.areaUbicacion = areaUbicacion;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.motivo = motivo;
+        this.usuarioId = usuarioId;
     }
 
-    // GETTERS Y SETTERS
-    public long getFechaHora() {
-        return fechaHora;
+    // Getters y Setters
+    public String getId() {
+        return id;
     }
 
-    public void setFechaHora(long fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public long getFechaReserva() {
+        return fechaReserva;
+    }
+
+    public void setFechaReserva(long fechaReserva) {
+        this.fechaReserva = fechaReserva;
     }
 
     public String getAreaUbicacion() {
@@ -33,19 +45,19 @@ public class Reserva {
         this.areaUbicacion = areaUbicacion;
     }
 
-    public long getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(long horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public long getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(long horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
 
@@ -55,5 +67,13 @@ public class Reserva {
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
+    }
+
+    public String getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }

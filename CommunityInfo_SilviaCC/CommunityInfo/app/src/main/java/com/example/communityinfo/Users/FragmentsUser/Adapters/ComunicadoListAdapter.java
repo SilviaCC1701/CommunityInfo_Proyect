@@ -1,24 +1,28 @@
-package com.example.communityinfo.Fragments.Adapters;
+package com.example.communityinfo.Users.FragmentsUser.Adapters;
 
-import com.example.communityinfo.Modelos.Comunicado;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.communityinfo.Modelos.Comunicado;
+import com.example.communityinfo.Modelos.Reserva;
 import com.example.communityinfo.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ComunicadoListAdapter extends RecyclerView.Adapter<ComunicadoListAdapter.ComunicadoViewHolder> {
-    private List<Comunicado> comunicados;
+    private List<Comunicado> comunicadosList;
 
     public ComunicadoListAdapter(List<Comunicado> comunicados) {
-        this.comunicados = comunicados;
+        this.comunicadosList = comunicados;
     }
 
     @NonNull
@@ -30,31 +34,34 @@ public class ComunicadoListAdapter extends RecyclerView.Adapter<ComunicadoListAd
 
     @Override
     public void onBindViewHolder(@NonNull ComunicadoViewHolder holder, int position) {
-        Comunicado comunicado = comunicados.get(position);
-        holder.titulo.setText(comunicado.getTitulo());
-        holder.asunto.setText(comunicado.getAsunto());
-        holder.contenido.setText(comunicado.getContenido());
+        Comunicado comunicado = comunicadosList.get(position);
 
-        Date f = new Date(comunicado.getFecha());
-        DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        String fechaFormato = format.format(f);
-        holder.fecha.setText(fechaFormato);
+        // Asignación valores
+        holder.txtTitulo.setText(comunicado.getTitulo());
+        holder.txtAsunto.setText(comunicado.getAsunto());
+        holder.txtContenido.setText(comunicado.getContenido());
+
+        // Convertir Fecha long de tipo Epoch timestamp a Date
+        Date fecha = new Date(comunicado.getFecha() * 1000);
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String fechaFormato = format.format(fecha);
+        holder.txtFecha.setText(fechaFormato);
     }
 
     @Override
     public int getItemCount() {
-        return comunicados.size();
+        return comunicadosList.size();
     }
 
     public static class ComunicadoViewHolder extends RecyclerView.ViewHolder {
-        TextView titulo, asunto, contenido, fecha;
+        TextView txtFecha, txtTitulo, txtAsunto, txtContenido;
 
         public ComunicadoViewHolder(@NonNull View itemView) {
             super(itemView);
-            titulo = itemView.findViewById(R.id.tv_titulo);
-            asunto = itemView.findViewById(R.id.tv_asunto);
-            contenido = itemView.findViewById(R.id.tv_contenido);
-            fecha = itemView.findViewById(R.id.tv_fecha);
+            txtFecha = itemView.findViewById(R.id.tv_fecha);
+            txtTitulo = itemView.findViewById(R.id.tv_titulo);
+            txtAsunto = itemView.findViewById(R.id.tv_asunto);
+            txtContenido = itemView.findViewById(R.id.tv_contenido);
         }
     }
 }

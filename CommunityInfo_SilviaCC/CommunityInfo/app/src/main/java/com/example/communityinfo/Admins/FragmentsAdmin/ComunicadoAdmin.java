@@ -1,4 +1,4 @@
-package com.example.communityinfo.Fragments.Admin;
+package com.example.communityinfo.Admins.FragmentsAdmin;
 
 import android.os.Bundle;
 

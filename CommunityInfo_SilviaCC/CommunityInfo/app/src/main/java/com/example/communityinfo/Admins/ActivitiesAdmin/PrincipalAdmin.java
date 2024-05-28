@@ -1,4 +1,4 @@
-package com.example.communityinfo.Admin_Activities;
+package com.example.communityinfo.Admins.ActivitiesAdmin;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;

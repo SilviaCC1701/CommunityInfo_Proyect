@@ -1,4 +1,4 @@
-package com.example.communityinfo;
+package com.example.communityinfo.Users.ActivitiesUser;
 
 import android.os.Bundle;
 
@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.communityinfo.R;
 import com.example.communityinfo.databinding.ActivityPrincipalBinding;
 
 public class Principal extends AppCompatActivity {

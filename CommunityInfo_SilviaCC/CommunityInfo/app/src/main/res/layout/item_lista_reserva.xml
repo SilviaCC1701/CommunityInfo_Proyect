@@ -4,64 +4,107 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="15dp"
     android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:layout_marginTop="7dp"
-    android:layout_marginBottom="5dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp" >
+    android:layout_marginBottom="5dp" >
 
     <TextView
-        android:id="@+id/tv_fecha"
-        android:layout_width="1000dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="290dp"
+        android:id="@+id/tv_fechaReserva"
+        android:layout_width="76dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
         android:layout_marginTop="10dp"
-        android:paddingLeft="1dp"
+        android:layout_toRightOf="@id/tv_areaUbicacion"
+        android:layout_marginEnd="2dp"
         android:text="Fecha"
         android:textColor="#000000"
-        android:textSize="19sp"
+        android:textSize="15sp"
         android:textStyle="normal"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/tv_titulo"
-        android:layout_width="275dp"
+        android:id="@+id/tv_areaUbicacion"
+        android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:paddingLeft="1dp"
-        android:text="Título"
+        android:text="Area Ubicacion"
         android:textColor="#000000"
-        android:textSize="22sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/tv_asunto"
-        android:layout_width="307dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_horaInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_areaUbicacion"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:paddingLeft="1dp"
-        android:text="Asunto"
+        android:text="Hora Inicio"
         android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="italic"
+        android:textSize="15sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/txtGuion"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_areaUbicacion"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/tv_horaInicio"
+        android:text="-"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/tv_horaFin"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/tv_areaUbicacion"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/txtGuion"
+        android:paddingLeft="1dp"
+        android:text="Hora Fin"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/tv_estadoReserva"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tv_areaUbicacion"
+        android:layout_toRightOf="@id/tv_horaFin"
+        android:layout_marginEnd="2dp"
+        android:text="Estado"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="normal"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/tv_contenido"
+        android:id="@+id/tv_motivo"
         android:layout_width="307dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_horaInicio"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="0dp"
         android:paddingLeft="1dp"
-        android:text="Contenido"
+        android:paddingTop="1dp"
+        android:text="Motivo"
         android:textColor="#000000"
-        android:textSize="19sp"
-        android:textStyle="normal"
-        tools:ignore="MissingConstraints" />
+        android:textSize="15sp" />
 
 </RelativeLayout>

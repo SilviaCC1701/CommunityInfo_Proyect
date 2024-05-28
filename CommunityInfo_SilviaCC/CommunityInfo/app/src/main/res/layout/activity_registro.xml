@@ -1,88 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/granate"
+    android:background="@color/white"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".Registro">
 
-    <TextView
-        android:id="@+id/txtview_nombre3"
-        android:layout_width="230dp"
-        android:layout_height="96dp"
-        android:fontFamily="@font/chamberi_text_semibold"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="33sp"
-        android:layout_marginTop="150dp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/marco1"
+        android:layout_width="413dp"
+        android:layout_height="394dp"
+        android:background="@color/violet"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-1dp">
 
-    <EditText
-        android:id="@+id/edittxt_name"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        android:ems="20"
-        android:fontFamily="@font/chamberi_text_regular"
-        android:hint="Nombre"
-        android:inputType="text"
-        android:paddingStart="20dp"
-        android:textColor="@color/dark_blue"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/txtview_tituloInfo"
+            android:layout_width="290dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="44dp"
+            android:fontFamily="@font/chamberi_text_semibold"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/edittxt_user"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        android:ems="20"
-        android:fontFamily="@font/chamberi_text_regular"
-        android:hint="Nombre de Usuario"
-        android:inputType="text"
-        android:paddingStart="20dp"
-        android:textColor="@color/dark_blue"
-        android:layout_marginBottom="10dp" />
+        <EditText
+            android:id="@+id/edittxt_name"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/white"
+            android:ems="20"
+            android:fontFamily="@font/chamberi_text_regular"
+            android:hint="Nombre"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtview_tituloInfo"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/edittxt_user"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:ems="20"
+            android:fontFamily="@font/chamberi_text_regular"
+            android:hint="Nombre de Usuario"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittxt_name"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/edittxt_cifComunity"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:ems="20"
+            android:fontFamily="@font/chamberi_text_regular"
+            android:hint="Cif Comunidad"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edittxt_user"
+            tools:ignore="MissingConstraints" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/edittxt_emailregister"
         android:layout_width="300dp"
         android:layout_height="60dp"
+        android:layout_marginTop="12dp"
         android:background="@color/white"
         android:ems="20"
         android:fontFamily="@font/chamberi_text_regular"
         android:hint="Correo Electrónico"
         android:inputType="textEmailAddress"
         android:paddingStart="20dp"
-        android:textColor="@color/dark_blue"
-        android:layout_marginBottom="10dp" />
+        android:textColor="@color/black"
+        android:textColorHint="@color/violet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/marco1"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/edittxt_passwordRegister"
         android:layout_width="300dp"
         android:layout_height="60dp"
+        android:layout_marginTop="12dp"
         android:background="@color/white"
         android:ems="20"
         android:fontFamily="@font/chamberi_text_regular"
         android:hint="Contraseña"
         android:inputType="textPassword"
         android:paddingStart="20dp"
-        android:textColor="@color/dark_blue"
-        android:layout_marginBottom="10dp" />
+        android:textColor="@color/black"
+        android:textColorHint="@color/violet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittxt_emailregister"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btn_registrarse_register"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:backgroundTint="@color/grisClaro"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/violet"
         android:fontFamily="@font/chamberi_text_semibold"
         android:text="Registrarse"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        android:layout_marginBottom="10dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittxt_passwordRegister"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtview_cuentacreada"
@@ -90,7 +152,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/chamberi_text_light"
         android:text="¿Ya tienes una cuenta?"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textColor="@color/purple"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_registrarse_register"
+        tools:ignore="MissingConstraints" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,18 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
-    tools:context=".Fragments.Comunicados">
+    android:background="@color/blue_1"
+    tools:context=".Users.FragmentsUser.Comunicados">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtPrueba"
-        android:layout_width="163dp"
-        android:layout_height="46dp"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="300dp"
-        android:text="Comunicados"
-        android:textColor="@color/white"
-        android:textSize="25dp" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbarComunicados"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/blueDark"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:title="Comunicados"
+            app:titleTextColor="@color/white" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_listadoComunicados"
+            android:layout_width="match_parent"
+            android:layout_height="651dp"
+            android:layoutAnimation="@anim/comunicado_animation"
+            tools:ignore="MissingConstraints"
+            tools:listitem="@layout/item_lista_comunicado" />
+
+        <TextView
+            android:id="@+id/tv_SinDatos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No hay comunicados disponibles"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </FrameLayout>
