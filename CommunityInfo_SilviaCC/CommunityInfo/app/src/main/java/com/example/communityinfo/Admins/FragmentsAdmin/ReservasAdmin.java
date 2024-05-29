@@ -1,4 +1,4 @@
-package com.example.communityinfo.Users.FragmentsUser;
+package com.example.communityinfo.Admins.FragmentsAdmin;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -41,7 +41,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Reservas extends Fragment implements ReservaListAdapter.OnItemClickListener {
+public class ReservasAdmin extends Fragment implements ReservaListAdapter.OnItemClickListener {
     private View view;
     private RecyclerView recyclerViewReservas;
     private ReservaListAdapter reservaAdapter;
@@ -52,7 +52,7 @@ public class Reservas extends Fragment implements ReservaListAdapter.OnItemClick
     private CalendarView calendarView;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-    public Reservas() { }
+    public ReservasAdmin() { }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class Reservas extends Fragment implements ReservaListAdapter.OnItemClick
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_reservas, container, false);
+        view = inflater.inflate(R.layout.fragment_reservas_admin, container, false);
         recyclerViewReservas = view.findViewById(R.id.rv_listadoReservasUsers);
         recyclerViewReservas.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -224,7 +224,6 @@ public class Reservas extends Fragment implements ReservaListAdapter.OnItemClick
         return content.toString().trim();
     }
 
-    // Al hacer click en un item comprueba si es su reserva o no, para poder modificar
     @Override
     public void onItemClick(Reserva reserva) {
         FirebaseUser user = miAuth.getCurrentUser();

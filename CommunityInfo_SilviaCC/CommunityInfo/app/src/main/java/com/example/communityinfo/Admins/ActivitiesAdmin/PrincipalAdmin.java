@@ -21,6 +21,7 @@ public class PrincipalAdmin extends AppCompatActivity {
         binding = ActivityPrincipalBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.FragmentoComunicados, R.id.FragmentoReservas, R.id.FragmentoLogOut
         ).build();

@@ -1,4 +1,4 @@
-package com.example.communityinfo.Users.FragmentsUser.Adapters;
+package com.example.communityinfo.Adapters_RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,6 +82,11 @@ public class ReservaListAdapter extends RecyclerView.Adapter<ReservaListAdapter.
 
     public interface OnItemClickListener {
         void onItemClick(Reserva reserva);
+    }
+
+    public void removeItem(int position) {
+        reservasList.remove(position);
+        notifyItemRemoved(position);
     }
 
     public static class ReservaViewHolder extends RecyclerView.ViewHolder {

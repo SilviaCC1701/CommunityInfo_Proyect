@@ -91,6 +91,7 @@ public class CrearReserva extends AppCompatActivity {
                 return;
             }
 
+            // Al no tener conflictos de reservas se crea la Reserva.
             Reserva nuevaReserva = new Reserva(null, fechaReserva, areaUbicacion, horaInicio, horaFin, motivo, usuarioId);
 
             miDb.collection("comunidades").document(cifSelected).collection("reservas")

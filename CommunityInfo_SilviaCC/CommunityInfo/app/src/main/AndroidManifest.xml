@@ -19,6 +19,12 @@
         android:theme="@style/Theme.CommunityInfo"
         tools:targetApi="31">
         <activity
+            android:name=".Admins.FragmentsAdmin.LogOutAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.FragmentsAdmin.ReservasAdmin"
+            android:exported="false" />
+        <activity
             android:name=".Users.ActivitiesUser.ModificarReserva"
             android:exported="false" />
         <activity

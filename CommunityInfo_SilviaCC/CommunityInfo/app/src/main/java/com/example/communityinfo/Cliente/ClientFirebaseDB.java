@@ -20,6 +20,4 @@ public class ClientFirebaseDB {
     private static String getCurrentUserId() {
         return miAuth.getCurrentUser() != null ? miAuth.getCurrentUser().getUid() : null;
     }
-
-
 }

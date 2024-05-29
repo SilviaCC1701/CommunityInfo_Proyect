@@ -1,4 +1,4 @@
-package com.example.communityinfo.Users.FragmentsUser.Adapters;
+package com.example.communityinfo.Adapters_RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.communityinfo.Modelos.Comunicado;
-import com.example.communityinfo.Modelos.Reserva;
 import com.example.communityinfo.R;
 
 import java.text.DateFormat;

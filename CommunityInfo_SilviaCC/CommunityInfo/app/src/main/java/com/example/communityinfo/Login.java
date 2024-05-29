@@ -143,6 +143,7 @@ public class Login extends AppCompatActivity {
     private void redirigirUsuarioSegunRol(String rol) {
         if ("admin".equals(rol)) {
             // Redirigir a la vista de administrador
+            Toast.makeText(Login.this, "Bienvenido Administrador", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Login.this, PrincipalAdmin.class));
         } else {
             // Redirigir a la vista de usuario

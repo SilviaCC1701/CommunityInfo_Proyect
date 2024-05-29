@@ -67,4 +67,8 @@ dependencies {
     implementation ("com.google.firebase:firebase-firestore:24.0.0")
     implementation ("com.google.firebase:firebase-database:20.0.0")
     implementation("com.google.firebase:firebase-analytics")
+
+    // Depencias sobre el swipeButton
+    implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("com.google.android.material:material:1.4.0")
 }

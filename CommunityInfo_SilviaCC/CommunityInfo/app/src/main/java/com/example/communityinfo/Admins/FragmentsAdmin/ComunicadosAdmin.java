@@ -1,4 +1,4 @@
-package com.example.communityinfo.Users.FragmentsUser;
+package com.example.communityinfo.Admins.FragmentsAdmin;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.communityinfo.Adapters_RecyclerView.ComunicadoListAdapter;
 import com.example.communityinfo.Modelos.Comunicado;
 import com.example.communityinfo.R;
-import com.example.communityinfo.Adapters_RecyclerView.ComunicadoListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Comunicados extends Fragment {
+public class ComunicadosAdmin extends Fragment {
     private View view;
     private RecyclerView recyclerViewComunicados;
     private ComunicadoListAdapter comunicadoAdapter;
@@ -40,7 +40,7 @@ public class Comunicados extends Fragment {
     private FirebaseFirestore miDb;
     private String cifSelected; // Contiene el cif de la comunidad seleccionada
 
-    public Comunicados() { } // Se requiere de un constructor vacío.
+    public ComunicadosAdmin() { } // Se requiere de un constructor vacío.
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class Comunicados extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_comunicados, container, false);
+        view = inflater.inflate(R.layout.fragment_comunicados_admin, container, false);
         recyclerViewComunicados = view.findViewById(R.id.rv_listadoComunicados);
         recyclerViewComunicados.setLayoutManager(new LinearLayoutManager(getContext()));
 

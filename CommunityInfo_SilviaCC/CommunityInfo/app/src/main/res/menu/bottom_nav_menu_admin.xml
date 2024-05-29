@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!-- icono temporal-->
+<item
+    android:id="@+id/FragmentoComunicadosAdmin"
+    android:icon="@drawable/ic_comunicado"
+    android:title="@string/title_comunicados"/>
+
+<item
+    android:id="@+id/FragmentoReservasAdmin"
+    android:icon="@drawable/ic_reserva"
+    android:title="@string/title_reservas" />
+
+<item
+    android:id="@+id/FragmentoLogOutAdmin"
+    android:icon="@drawable/ic_logout"
+    android:title="Cerrar Sesión" />
+</menu>
