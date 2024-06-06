@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingTop="5dp"
+    android:paddingBottom="18dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="15dp">
+
+    <TextView
+        android:id="@+id/tv_txtCif"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="1dp"
+        android:text="CIF: "
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_CIF"
+        android:layout_width="307dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_txtCif"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="1dp"
+        android:text="numero CIF"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_txtNombre"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_CIF"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="1dp"
+        android:text="Nombre: "
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        android:textStyle="normal"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_NombreComunidad"
+        android:layout_width="268dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_CIF"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/tv_txtNombre"
+        android:paddingLeft="1dp"
+        android:text="Nombre Comunidad"
+        android:textColor="@color/black"
+        android:textSize="21sp"
+        android:textStyle="normal"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_txtDireccion"
+        android:layout_width="100dp"
+        android:layout_below="@+id/tv_NombreComunidad"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:text="Dirección: "
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/tv_DireccionComunidad"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_NombreComunidad"
+        android:layout_toRightOf="@+id/tv_txtDireccion"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="1dp"
+        android:text="Dirección Comunidad"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        tools:ignore="MissingConstraints" />
+
+</RelativeLayout>

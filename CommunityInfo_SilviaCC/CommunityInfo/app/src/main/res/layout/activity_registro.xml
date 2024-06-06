@@ -11,26 +11,26 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/marco1"
-        android:layout_width="413dp"
-        android:layout_height="394dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:background="@color/violet"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp">
+        tools:layout_editor_absoluteX="-3dp">
 
         <TextView
             android:id="@+id/txtview_tituloInfo"
-            android:layout_width="290dp"
-            android:layout_height="96dp"
-            android:layout_marginTop="44dp"
+            android:layout_width="237dp"
+            android:layout_height="109dp"
+            android:layout_marginTop="60dp"
             android:fontFamily="@font/chamberi_text_semibold"
             android:text="@string/app_name"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="40sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
@@ -39,16 +39,16 @@
             android:id="@+id/edittxt_name"
             android:layout_width="300dp"
             android:layout_height="60dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:background="@color/white"
             android:ems="20"
             android:fontFamily="@font/chamberi_text_regular"
-            android:hint="Nombre"
+            android:hint="Nombre y Apellidos"
             android:inputType="text"
             android:paddingStart="20dp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtview_tituloInfo"
             tools:ignore="MissingConstraints" />

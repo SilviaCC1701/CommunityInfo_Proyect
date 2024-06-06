@@ -6,18 +6,20 @@
     app:startDestination="@id/FragmentoComunicados">
 
     <fragment
+        android:id="@+id/FragmentoComunicados"
+        android:name="com.example.communityinfo.Users.FragmentsUser.Comunicados"
+        android:label="fragment_comunicados"
+        tools:layout="@layout/fragment_comunicados" />
+
+    <fragment
         android:id="@+id/FragmentoReservas"
         android:name="com.example.communityinfo.Users.FragmentsUser.Reservas"
         android:label="fragment_reservas"
         tools:layout="@layout/fragment_reservas" />
+
     <fragment
         android:id="@+id/FragmentoLogOut"
         android:name="com.example.communityinfo.Users.FragmentsUser.LogOut"
         android:label="fragment_logout"
         tools:layout="@layout/fragment_logout" />
-    <fragment
-        android:id="@+id/FragmentoComunicados"
-        android:name="com.example.communityinfo.Users.FragmentsUser.Comunicados"
-        android:label="fragment_comunicados"
-        tools:layout="@layout/fragment_comunicados" />
 </navigation>

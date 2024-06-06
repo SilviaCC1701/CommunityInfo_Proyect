@@ -25,12 +25,12 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="680dp">
+            android:layout_height="670dp">
 
             <CalendarView
                 android:id="@+id/calendarViewUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="340dp"
+                android:layout_height="319dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,16 +39,17 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_listadoReservasUsers"
-                android:layout_width="350dp"
-                android:layout_height="284dp"
-                android:background="@color/blue_2"
+                android:layout_width="340dp"
+                android:layout_height="320dp"
+                android:background="@color/grayDark"
                 android:layoutAnimation="@anim/comunicado_animation"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintHorizontal_bias="0.507"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/calendarViewUser"
-                app:layout_constraintVertical_bias="0.261" />
+                app:layout_constraintVertical_bias="0.567"
+                tools:listitem="@layout/item_lista_reserva" />
 
             <TextView
                 android:id="@+id/tv_SinDatos"
@@ -57,6 +58,7 @@
                 android:layout_gravity="center"
                 android:text="No hay reservas disponibles"
                 android:textSize="18sp"
+                android:textColor="@color/white"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/rv_listadoReservasUsers"
                 app:layout_constraintEnd_toEndOf="@+id/rv_listadoReservasUsers"

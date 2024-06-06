@@ -11,16 +11,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.communityinfo.Modelos.Reserva;
 import com.example.communityinfo.R;
-import com.example.communityinfo.Users.ActivitiesUser.CrearReserva;
-import com.example.communityinfo.Users.ActivitiesUser.ModificarReserva;
+import com.example.communityinfo.Admins.ActivitiesAdmin.CrearReservaAdmin;
+import com.example.communityinfo.Admins.ActivitiesAdmin.ModificarReservaAdmin;
 import com.example.communityinfo.Adapters_RecyclerView.ReservaListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +42,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ReservasAdmin extends Fragment implements ReservaListAdapter.OnItemClickListener {
+
     private View view;
     private RecyclerView recyclerViewReservas;
     private ReservaListAdapter reservaAdapter;
@@ -52,19 +53,20 @@ public class ReservasAdmin extends Fragment implements ReservaListAdapter.OnItem
     private CalendarView calendarView;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-    public ReservasAdmin() { }
+    public ReservasAdmin() {
+        // Required empty public constructor
+    }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         miAuth = FirebaseAuth.getInstance();
         miDb = FirebaseFirestore.getInstance();
         cifSelected = readFile();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_reservas_admin, container, false);
         recyclerViewReservas = view.findViewById(R.id.rv_listadoReservasUsers);
         recyclerViewReservas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -73,7 +75,7 @@ public class ReservasAdmin extends Fragment implements ReservaListAdapter.OnItem
         reservaAdapter = new ReservaListAdapter(reservasList, this);
         recyclerViewReservas.setAdapter(reservaAdapter);
 
-        calendarView = view.findViewById(R.id.calendarViewUser);
+        calendarView = view.findViewById(R.id.calendarViewAdmin);
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             String selectedDate = dayOfMonth + "-" + (month + 1) + "-" + year;
             try {
@@ -86,37 +88,22 @@ public class ReservasAdmin extends Fragment implements ReservaListAdapter.OnItem
 
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), CrearReserva.class);
+            Intent intent = new Intent(getContext(), CrearReservaAdmin.class);
             startActivity(intent);
         });
 
-        // Cargar reservas de la fecha actual al inicio del fragmento
         cargarReservas(new Date());
 
-        // Configuro el ItemTouchHelper para swipeButton
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false; // No necesitamos mover elementos en este caso
+                return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-                Reserva reserva = reservasList.get(position);
-                FirebaseUser user = miAuth.getCurrentUser();
-                if (user != null && user.getUid().equals(reserva.getUsuarioId())) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle("Eliminar Reserva")
-                            .setMessage("¿Está seguro de que desea eliminar esta reserva?")
-                            .setPositiveButton(android.R.string.yes, (dialog, which) -> eliminarReserva(position))
-                            .setNegativeButton(android.R.string.no, (dialog, which) -> reservaAdapter.notifyItemChanged(position))
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                } else {
-                    Toast.makeText(getContext(), "No tiene permisos para eliminar esta reserva", Toast.LENGTH_SHORT).show();
-                    reservaAdapter.notifyItemChanged(position);
-                }
+                confirmarEliminarReserva(position);
             }
         });
 
@@ -161,6 +148,16 @@ public class ReservasAdmin extends Fragment implements ReservaListAdapter.OnItem
         }
     }
 
+    private void confirmarEliminarReserva(int position) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Eliminar Reserva")
+                .setMessage("¿Está seguro de que desea eliminar esta reserva?")
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> eliminarReserva(position))
+                .setNegativeButton(android.R.string.no, (dialog, which) -> reservaAdapter.notifyItemChanged(position))
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+
     private void eliminarReserva(int position) {
         Reserva reserva = reservasList.get(position);
         miDb.collection("comunidades").document(cifSelected).collection("reservas").document(reserva.getId())
@@ -195,6 +192,14 @@ public class ReservasAdmin extends Fragment implements ReservaListAdapter.OnItem
         return calendar.getTime();
     }
 
+    // Click en item para modificar cualquier reserva seleccionada
+    @Override
+    public void onItemClick(Reserva reserva) {
+        Intent intent = new Intent(getContext(), ModificarReservaAdmin.class);
+        intent.putExtra("reservaId", reserva.getId());
+        startActivity(intent);
+    }
+
     @SuppressLint("NewApi")
     private String readFile() {
         File directory = new File(getContext().getFilesDir(), "Database");
@@ -222,17 +227,5 @@ public class ReservasAdmin extends Fragment implements ReservaListAdapter.OnItem
             return null;
         }
         return content.toString().trim();
-    }
-
-    @Override
-    public void onItemClick(Reserva reserva) {
-        FirebaseUser user = miAuth.getCurrentUser();
-        if (user != null && user.getUid().equals(reserva.getUsuarioId())) {
-            Intent intent = new Intent(getContext(), ModificarReserva.class);
-            intent.putExtra("reservaId", reserva.getId());
-            startActivity(intent);
-        } else {
-            Toast.makeText(getContext(), "No tiene permisos para modificar esta reserva", Toast.LENGTH_SHORT).show();
-        }
     }
 }

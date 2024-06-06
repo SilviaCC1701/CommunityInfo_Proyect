@@ -11,9 +11,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/marco1"
-        android:layout_width="412dp"
+        android:layout_width="match_parent"
         android:layout_height="476dp"
-        android:background="@color/blue_2"
+        android:background="@color/blue_1"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/txtview_nombre2"
-            android:layout_width="258dp"
+            android:layout_width="237dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:fontFamily="@font/chamberi_text_semibold"
@@ -79,7 +79,7 @@
             android:ems="10"
             android:fontFamily="@font/chamberi_text_regular"
             android:hint="CIF"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:paddingStart="20dp"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
@@ -96,7 +96,7 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="12dp"
-        android:backgroundTint="@color/blue_2"
+        android:backgroundTint="@color/blue_1"
         android:fontFamily="@font/chamberi_text_semibold"
         android:text="Iniciar Sesión"
         android:textColor="@color/white"

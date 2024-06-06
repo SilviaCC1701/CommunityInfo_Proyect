@@ -19,9 +19,11 @@ import java.util.Locale;
 
 public class ComunicadoListAdapter extends RecyclerView.Adapter<ComunicadoListAdapter.ComunicadoViewHolder> {
     private List<Comunicado> comunicadosList;
+    private OnItemClickListener listener;
 
-    public ComunicadoListAdapter(List<Comunicado> comunicados) {
+    public ComunicadoListAdapter(List<Comunicado> comunicados, OnItemClickListener listener) {
         this.comunicadosList = comunicados;
+        this.listener = listener;
     }
 
     @NonNull
@@ -35,21 +37,34 @@ public class ComunicadoListAdapter extends RecyclerView.Adapter<ComunicadoListAd
     public void onBindViewHolder(@NonNull ComunicadoViewHolder holder, int position) {
         Comunicado comunicado = comunicadosList.get(position);
 
-        // Asignación valores
+        // Convertir Fecha long de tipo milisegundos a Date
+        long fechaReservadaEpoch = comunicado.getFecha();
+        Date fechaReservada = new Date(fechaReservadaEpoch);
+        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        String fechaFormato = format.format(fechaReservada);
+
+
+        // Relleno de TextView con valores del item selected
+        holder.txtFecha.setText(fechaFormato);
         holder.txtTitulo.setText(comunicado.getTitulo());
         holder.txtAsunto.setText(comunicado.getAsunto());
         holder.txtContenido.setText(comunicado.getContenido());
 
-        // Convertir Fecha long de tipo Epoch timestamp a Date
-        Date fecha = new Date(comunicado.getFecha() * 1000);
-        DateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        String fechaFormato = format.format(fecha);
-        holder.txtFecha.setText(fechaFormato);
+        holder.itemView.setOnClickListener(v -> listener.onItemClick(comunicado));
     }
 
     @Override
     public int getItemCount() {
         return comunicadosList.size();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Comunicado comunicado);
+    }
+
+    public void removeItem(int position) {
+        comunicadosList.remove(position);
+        notifyItemRemoved(position);
     }
 
     public static class ComunicadoViewHolder extends RecyclerView.ViewHolder {

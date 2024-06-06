@@ -19,19 +19,56 @@
         android:theme="@style/Theme.CommunityInfo"
         tools:targetApi="31">
         <activity
-            android:name=".Admins.FragmentsAdmin.LogOutAdmin"
+            android:name=".Admins.ActivitiesAdmin.CrearComunidad"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.ModificarComunidad"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.PrincipalAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.CrearComunicado"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.ModificarComunicado"
             android:exported="false" />
         <activity
             android:name=".Admins.FragmentsAdmin.ReservasAdmin"
             android:exported="false" />
         <activity
+            android:name=".Admins.FragmentsAdmin.GestionAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.ContenidoLista"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.Comunidades"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.Residentes"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.ModificarResidente"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.CrearResidente"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.ModificarReservaAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Admins.ActivitiesAdmin.CrearReservaAdmin"
+            android:exported="false" />
+        <activity
+            android:name=".Users.ActivitiesUser.Principal"
+            android:exported="false"
+            android:label="@string/title_comunicados" />
+        <activity
             android:name=".Users.ActivitiesUser.ModificarReserva"
             android:exported="false" />
         <activity
             android:name=".Users.ActivitiesUser.CrearReserva"
-            android:exported="false" />
-        <activity
-            android:name=".Admins.ActivitiesAdmin.PrincipalAdmin"
             android:exported="false" />
         <activity
             android:name=".Inicio"
@@ -42,10 +79,6 @@
         <activity
             android:name=".Login"
             android:exported="false" />
-        <activity
-            android:name=".Users.ActivitiesUser.Principal"
-            android:exported="false"
-            android:label="@string/title_comunicados" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

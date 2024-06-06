@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.example.communityinfo.Inicio;
+import com.example.communityinfo.Login;
 import com.example.communityinfo.R;
 import com.example.communityinfo.Users.ActivitiesUser.Principal;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,7 +50,7 @@ public class LogOut extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        showTextDialog_ConfirmDelete();
+        showTextDialog_ConfirmLogout();
     }
 
     @Override
@@ -62,13 +63,14 @@ public class LogOut extends Fragment {
         return inflater.inflate(R.layout.fragment_logout, container, false);
     }
 
-    private void showTextDialog_ConfirmDelete(){
+    private void showTextDialog_ConfirmLogout(){
         AlertDialog.Builder alertDialog_Builder = new AlertDialog.Builder(getContext());
         alertDialog_Builder.setTitle("¿Esta seguro que Cerrar Sesión?");
         alertDialog_Builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                // Cerrar Sesión
                 FirebaseAuth.getInstance().signOut();
                 dialog.cancel();
 

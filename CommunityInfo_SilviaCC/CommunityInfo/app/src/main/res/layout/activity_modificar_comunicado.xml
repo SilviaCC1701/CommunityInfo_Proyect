@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Users.ActivitiesUser.ModificarReserva">
+    tools:context=".Admins.ActivitiesAdmin.ModificarComunicado">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/myToolbarModificaReserva"
+        android:id="@+id/myToolbarModificaComunicado"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/purple"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:title="Modificar reserva"
+        app:title="Editar Comunicado"
         app:titleTextColor="@color/white" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,18 +22,8 @@
         android:layout_height="match_parent"
         android:padding="29dp">
 
-        <Spinner
-            android:id="@+id/spinnerAreaUbicacion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-
         <EditText
-            android:id="@+id/etFechaDeReserva"
+            android:id="@+id/etFechaEditComunicado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -45,61 +35,57 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerAreaUbicacion" />
+            tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/etHoraInicio"
+            android:id="@+id/etTituloEditComunicado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Título"
+            android:textSize="18sp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            app:layout_constraintTop_toBottomOf="@+id/etFechaEditComunicado"/>
+
+        <EditText
+            android:id="@+id/etAsuntoEditComunicado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:hint="Hora de Inicio (HH:MM)"
+            android:hint="Asunto"
             android:textSize="18sp"
-            android:inputType="time"
-            android:maxLength="5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etFechaDeReserva" />
+            app:layout_constraintTop_toBottomOf="@+id/etTituloEditComunicado" />
 
         <EditText
-            android:id="@+id/etHoraFin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="Hora de Fin (HH:MM)"
-            android:textSize="18sp"
-            android:inputType="time"
-            android:maxLength="5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.52"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etHoraInicio" />
-
-        <EditText
-            android:id="@+id/etMotivo"
+            android:id="@+id/etContenidoEditComunicado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Motivo"
+            android:hint="Contenido"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etHoraFin"
+            app:layout_constraintTop_toBottomOf="@+id/etAsuntoEditComunicado"
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/btnModificarReserva"
+            android:id="@+id/btnModificarComunicado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/purple"
-            android:text="Actualizar Reserva"
+            android:text="Actualizar Comunicado"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etMotivo"
+            app:layout_constraintTop_toBottomOf="@+id/etContenidoEditComunicado"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

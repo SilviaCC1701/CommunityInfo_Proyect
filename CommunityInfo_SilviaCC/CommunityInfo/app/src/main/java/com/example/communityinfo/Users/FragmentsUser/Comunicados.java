@@ -58,7 +58,9 @@ public class Comunicados extends Fragment {
         recyclerViewComunicados.setLayoutManager(new LinearLayoutManager(getContext()));
 
         comunicadosList = new ArrayList<>();
-        comunicadoAdapter = new ComunicadoListAdapter(comunicadosList);
+        comunicadoAdapter = new ComunicadoListAdapter(comunicadosList, comunicado -> {
+            // Apartado añadir acción click item. Actualmente no es necesario en este fragmento
+        });
         recyclerViewComunicados.setAdapter(comunicadoAdapter);
 
         if (cifSelected != null) {
@@ -116,7 +118,6 @@ public class Comunicados extends Fragment {
             }
         } catch (IOException e) {
             System.err.println("Ocurrió un error al leer el archivo: " + e.getMessage());
-            // Elimina el archivo en caso de error de lectura
             try {
                 Files.delete(file.toPath());
                 System.out.println("Archivo eliminado debido a un error de lectura.");
@@ -125,6 +126,6 @@ public class Comunicados extends Fragment {
             }
             return null;
         }
-        return content.toString().trim(); // Elimina el salto de línea final
+        return content.toString().trim();
     }
 }

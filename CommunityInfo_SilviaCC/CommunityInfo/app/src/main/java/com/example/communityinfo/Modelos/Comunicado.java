@@ -1,6 +1,7 @@
 package com.example.communityinfo.Modelos;
 
 public class Comunicado {
+    private String id;
     private long fecha; // es una fecha en Epoch timestamp
     private String titulo;
     private String asunto;
@@ -8,7 +9,8 @@ public class Comunicado {
 
     // CONSTRUCTORES
     public Comunicado(){ /* Construcctor vacio para Firebase */ }
-    public Comunicado(long fecha, String titulo, String asunto, String contenido){
+    public Comunicado(String id, long fecha, String titulo, String asunto, String contenido){
+        this.id = id;
         this.fecha = fecha;
         this.titulo = titulo;
         this.asunto = asunto;
@@ -16,6 +18,15 @@ public class Comunicado {
     }
 
     // GETTERS Y SETTERS
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public long getFecha() {
         return fecha;
     }

@@ -1,4 +1,4 @@
-package com.example.communityinfo.Users.ActivitiesUser;
+package com.example.communityinfo.Admins.ActivitiesAdmin;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,15 +9,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.communityinfo.Admins.ActivitiesAdmin.ModificarReservaAdmin;
 import com.example.communityinfo.Modelos.Reserva;
 import com.example.communityinfo.R;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -38,20 +35,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ModificarReserva extends AppCompatActivity {
+public class ModificarReservaAdmin extends AppCompatActivity {
     private Spinner spinnerAreaUbicacion;
     private EditText etFechaDeReserva, etHoraInicio, etHoraFin, etMotivo;
     private Button btnModificarReserva;
     private FirebaseFirestore miDb;
     private FirebaseAuth miAuth;
     private String reservaId;
+    private String idUsuarioCreator;
     private String cifSelected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modificar_reserva);
+        setContentView(R.layout.activity_modificar_reserva_admin);
 
-        spinnerAreaUbicacion = findViewById(R.id.spinnerAreaUbicacion);
+        spinnerAreaUbicacion = findViewById(R.id.spinnerAreaUbiAdmin);
         etFechaDeReserva = findViewById(R.id.etFechaDeReserva);
         etHoraInicio = findViewById(R.id.etHoraInicio);
         etHoraFin = findViewById(R.id.etHoraFin);
@@ -64,14 +62,14 @@ public class ModificarReserva extends AppCompatActivity {
         cargarListaAreas();
         reservaId = getIntent().getStringExtra("reservaId");
 
-        // Metodo que carga los datos de la reserva seleccionada.
+        // Método que carga los datos de la reserva seleccionada.
         cargarDatosReserva(reservaId);
 
         btnModificarReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Metodo que actualiza los datos de la reserva seleccionada.
-                actualizarReserva();
+                // Método que actualiza los datos de la reserva seleccionada.
+                actualizarReserva(reservaId);
             }
         });
     }
@@ -87,17 +85,18 @@ public class ModificarReserva extends AppCompatActivity {
                     etHoraInicio.setText(reserva.getHoraInicio());
                     etHoraFin.setText(reserva.getHoraFin());
                     etMotivo.setText(reserva.getMotivo());
+                    idUsuarioCreator = reserva.getUsuarioId(); // Guardar el usuario que creó la reserva
                 }
             } else {
-                Toast.makeText(ModificarReserva.this, "Error al cargar los datos de la reserva", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ModificarReservaAdmin.this, "Error al cargar los datos de la reserva", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(e -> {
-            Toast.makeText(ModificarReserva.this, "Error al obtener los datos de la reserva: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ModificarReservaAdmin.this, "Error al obtener los datos de la reserva: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
 
     // Metodo que actualiza las Reservas
-    private void actualizarReserva() {
+    private void actualizarReserva(String reservaId) {
         String areaUbicacion = spinnerAreaUbicacion.getSelectedItem().toString().trim();
         String fechaDeReserva = etFechaDeReserva.getText().toString().trim();
         String horaInicio = etHoraInicio.getText().toString().trim();
@@ -120,25 +119,20 @@ public class ModificarReserva extends AppCompatActivity {
             return;
         }
 
-        // Verificación de confictos con otras reservas
-        FirebaseUser user = miAuth.getCurrentUser();
-        if (user != null) {
-            String usuarioId = user.getUid();
+        // Verificación de conflictos con otras reservas
+        verificarConflictoReserva(cifSelected, areaUbicacion, fechaReserva, horaInicio, horaFin).addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult()) {
+                Toast.makeText(this, "Conflicto con otra reserva en el mismo horario", Toast.LENGTH_SHORT).show();
+            } else {
+                // Al no tener conflictos de reservas se actualiza la Reserva.
+                Reserva reservaActualizada = new Reserva(reservaId, fechaReserva, areaUbicacion, horaInicio, horaFin, motivo, idUsuarioCreator);
 
-            verificarConflictoReserva(cifSelected, areaUbicacion, fechaReserva, horaInicio, horaFin).addOnCompleteListener(task -> {
-                if (task.isSuccessful() && task.getResult()) {
-                    Toast.makeText(this, "Conflicto con otra reserva en el mismo horario", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Al no tener conflictos de reservas se crea la Reserva.
-                    Reserva reservaActualizada = new Reserva(reservaId, fechaReserva, areaUbicacion, horaInicio, horaFin, motivo, usuarioId);
-
-                    miDb.collection("comunidades").document(cifSelected).collection("reservas").document(reservaId)
-                            .set(reservaActualizada)
-                            .addOnSuccessListener(aVoid -> Toast.makeText(ModificarReserva.this, "Reserva actualizada con éxito", Toast.LENGTH_SHORT).show())
-                            .addOnFailureListener(e -> Toast.makeText(ModificarReserva.this, "Error al actualizar la reserva: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-                }
-            }).addOnFailureListener(e -> Toast.makeText(this, "Reserva modificada sin verificar", Toast.LENGTH_SHORT).show());
-        }
+                miDb.collection("comunidades").document(cifSelected).collection("reservas").document(reservaId)
+                        .set(reservaActualizada)
+                        .addOnSuccessListener(aVoid -> Toast.makeText(ModificarReservaAdmin.this, "Reserva actualizada con éxito", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(ModificarReservaAdmin.this, "Error al actualizar la reserva: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+        }).addOnFailureListener(e -> Toast.makeText(this, "Reserva modificada sin verificar", Toast.LENGTH_SHORT).show());
     }
 
     private Task<Boolean> verificarConflictoReserva(String cif, String areaUbicacion, long fechaReserva, String horaInicio, String horaFin) {
@@ -221,10 +215,10 @@ public class ModificarReserva extends AppCompatActivity {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerAreaUbicacion.setAdapter(adapter);
                     } else {
-                        Toast.makeText(ModificarReserva.this, "Error al cargar áreas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ModificarReservaAdmin.this, "Error al cargar áreas", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(ModificarReserva.this, "Error al obtener áreas: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> Toast.makeText(ModificarReservaAdmin.this, "Error al obtener áreas: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void setSpinnerSelection(Spinner spinner, String value) {

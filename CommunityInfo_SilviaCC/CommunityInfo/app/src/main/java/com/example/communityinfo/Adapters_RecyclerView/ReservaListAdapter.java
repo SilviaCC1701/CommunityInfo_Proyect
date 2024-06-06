@@ -13,9 +13,11 @@ import com.example.communityinfo.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class ReservaListAdapter extends RecyclerView.Adapter<ReservaListAdapter.ReservaViewHolder> {
     private List<Reserva> reservasList;
@@ -104,18 +106,40 @@ public class ReservaListAdapter extends RecyclerView.Adapter<ReservaListAdapter.
     }
 
     private String getEstadoReserva(Reserva reserva) {
-        long now = System.currentTimeMillis();
-        long fechaDeReserva = reserva.getFechaReserva(); // Este debería ser en milisegundos
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+        long now = calendar.getTimeInMillis();
+        long fechaDeReserva = reserva.getFechaReserva();
         String horaInicio = reserva.getHoraInicio();
         String horaFin = reserva.getHoraFin();
 
         try {
+            // Convertir horas a Date con un formato y zona horaria
             DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            dateFormat.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
             Date dateInicio = dateFormat.parse(horaInicio);
             Date dateFin = dateFormat.parse(horaFin);
+
+            // Crear calendarios y establecer hora
+            Calendar calendarInicio = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+            Calendar calendarFin = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+            calendarInicio.setTime(dateInicio);
+            calendarFin.setTime(dateFin);
+
+            // Establecer la fecha de reserva en los objetos Calendar
+            calendar.setTimeInMillis(fechaDeReserva);
+            calendarInicio.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
+            calendarInicio.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
+            calendarInicio.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
+
+            calendarFin.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
+            calendarFin.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
+            calendarFin.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
+
             if (dateInicio != null && dateFin != null) {
-                long inicioTimestamp = fechaDeReserva + dateInicio.getTime();
-                long finTimestamp = fechaDeReserva + dateFin.getTime();
+
+                // Obtener los tiempos en milisegundos del inicio y fin de la reserva
+                long inicioTimestamp = calendarInicio.getTimeInMillis();
+                long finTimestamp = calendarFin.getTimeInMillis();
 
                 if (now < inicioTimestamp) {
                     return "PRÓXIMAMENTE";

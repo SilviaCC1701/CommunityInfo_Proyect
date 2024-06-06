@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Users.ActivitiesUser.ModificarReserva">
+    android:gravity="center_horizontal"
+    tools:context=".Admins.ActivitiesAdmin.CrearReservaAdmin">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/myToolbarModificaReserva"
+        android:id="@+id/myToolbarCreaReserva"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/purple"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:title="Modificar reserva"
-        app:titleTextColor="@color/white" />
+        app:title="Crear reserva"
+        app:titleTextColor="@color/white"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="29dp">
+        android:orientation="vertical"
+        android:padding="29dp"
+        android:gravity="center_horizontal" >
 
         <Spinner
-            android:id="@+id/spinnerAreaUbicacion"
+            android:id="@+id/spinnerAreaUbiAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
@@ -39,13 +42,13 @@
             android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="Fecha (dd-MM-yyyy)"
-            android:inputType="date"
             android:textSize="18sp"
+            android:inputType="date"
             android:maxLength="10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerAreaUbicacion" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerAreaUbiAdmin" />
 
         <EditText
             android:id="@+id/etHoraInicio"
@@ -53,8 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="Hora de Inicio (HH:MM)"
-            android:textSize="18sp"
             android:inputType="time"
+            android:textSize="18sp"
             android:maxLength="5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
@@ -88,12 +91,12 @@
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/btnModificarReserva"
+            android:id="@+id/btnCrearReserva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/purple"
-            android:text="Actualizar Reserva"
+            android:text="Crear Reserva"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"

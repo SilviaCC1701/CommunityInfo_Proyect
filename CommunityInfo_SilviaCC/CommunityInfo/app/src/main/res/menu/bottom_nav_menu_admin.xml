@@ -12,7 +12,7 @@
     android:title="@string/title_reservas" />
 
 <item
-    android:id="@+id/FragmentoLogOutAdmin"
-    android:icon="@drawable/ic_logout"
-    android:title="Cerrar Sesión" />
+    android:id="@+id/FragmentoGestionAdmin"
+    android:icon="@drawable/ic_settings_gestion"
+    android:title="Gestión" />
 </menu>

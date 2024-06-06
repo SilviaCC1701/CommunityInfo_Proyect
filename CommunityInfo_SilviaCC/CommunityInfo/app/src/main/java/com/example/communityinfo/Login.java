@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -86,15 +87,15 @@ public class Login extends AppCompatActivity {
         return true;
     }
 
+    // Guardo CifSelected y VerificoRolUsuario
     private void autenticarUsuario(String email, String password, String cif) {
         miAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Inicio de Sesión Exitoso", Toast.LENGTH_SHORT).show();
                             guardarCifEnArchivo(cif);
-                            verificarRolUsuario();
+                            verificarRolUsuario(email, cif);
                         } else {
                             Toast.makeText(Login.this, "Error. Intentelo de nuevo.", Toast.LENGTH_SHORT).show();
                         }
@@ -109,26 +110,33 @@ public class Login extends AppCompatActivity {
         }
         File file = new File(directory, "ComunidadCif.txt");
         try (FileWriter fileWriter = new FileWriter(file)) {
+            // Archivo creado o sobrescrito con éxito
             fileWriter.write(cif);
-            System.out.println("Archivo creado o sobrescrito con éxito.");
         } catch (IOException e) {
             System.err.println("Ocurrió un error al escribir en el archivo: " + e.getMessage());
         }
     }
 
-    private void verificarRolUsuario() {
+    private void verificarRolUsuario(String email, String cifSelected) {
         FirebaseUser user = miAuth.getCurrentUser();
-        String uid = user.getUid();
+        if (user == null) {
+            Toast.makeText(Login.this, "Error al obtener usuario autenticado", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        miDb.collection("users").document(uid).get()
+        String miUid = user.getUid();
+
+        miDb.collection("users").document(miUid).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists()) {
                             String rol = documentSnapshot.getString("rol");
-                            redirigirUsuarioSegunRol(rol);
+                            redirigirUsuarioSegunTipoRol(miUid, email, rol, cifSelected);
+                            //verificarResidente(miUid, email, rol, cifSelected);
                         } else {
                             Toast.makeText(Login.this, "Error al obtener datos de usuario", Toast.LENGTH_SHORT).show();
+                            cerrarSesion();
                         }
                     }
                 })
@@ -136,19 +144,61 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(Login.this, "Error al obtener datos de usuario", Toast.LENGTH_SHORT).show();
+                        cerrarSesion();
                     }
                 });
     }
 
-    private void redirigirUsuarioSegunRol(String rol) {
+    private void verificarResidente(String miUid, String email, String rol, String cifSeleccionado) {
+        String cifSelected = cifSeleccionado;
+
+        // Verificamos si la persona pertenece a la comunidad indicada.
+        miDb.collection("comunidades").document(cifSelected)
+                .collection("residentes")
+                .whereEqualTo("uid_user", miUid)
+                .whereEqualTo("email", email)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (!task.getResult().isEmpty()) {
+                                DocumentSnapshot residenteDoc = task.getResult().getDocuments().get(0);
+                                if (!TextUtils.isEmpty(residenteDoc.getString("uid_user"))) {
+                                    Toast.makeText(Login.this, "Bienvenido Usuario", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(Login.this, Principal.class));
+                                } else {
+                                    Toast.makeText(Login.this, "El usuario no está registrado", Toast.LENGTH_SHORT).show();
+                                    cerrarSesion();
+                                }
+                            } else {
+                                Toast.makeText(Login.this, "Residente no encontrado o no está registrado", Toast.LENGTH_SHORT).show();
+                                cerrarSesion();
+                            }
+                        } else {
+                            Toast.makeText(Login.this, "Error al obtener datos de verificación", Toast.LENGTH_SHORT).show();
+                            cerrarSesion();
+                        }
+                    }
+                });
+    }
+
+    private void redirigirUsuarioSegunTipoRol(String miUid, String email, String rol, String cifSeleccionado) {
         if ("admin".equals(rol)) {
             // Redirigir a la vista de administrador
             Toast.makeText(Login.this, "Bienvenido Administrador", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Login.this, PrincipalAdmin.class));
         } else {
-            // Redirigir a la vista de usuario
-            startActivity(new Intent(Login.this, Principal.class));
+            // Verifica que es un residente y redirigir a la vista de usuario
+            verificarResidente(miUid, email, rol, cifSeleccionado);
         }
+        finish();
+    }
+
+    private void cerrarSesion() {
+        miAuth.signOut();
+        Intent intent = new Intent(Login.this, Inicio.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
         finish();
     }
 }

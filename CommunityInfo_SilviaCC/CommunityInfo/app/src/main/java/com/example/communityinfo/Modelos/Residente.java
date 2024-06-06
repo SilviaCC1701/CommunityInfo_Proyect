@@ -1,27 +1,37 @@
 package com.example.communityinfo.Modelos;
 
 public class Residente {
+    private String id;
     private String dni;
     private String nombre;
     private String nombreUsuario;
     private String telefono;
     private String direccion;
     private String email;
-    private String uidUser;
+    private String uid_user;
 
     // CONSTRUCTORES
     public Residente(){ /* Construcctor vacio para Firebase */ }
-    public Residente(String dni, String nombre, String nombreUsuario, String telefono, String direccion, String email, String uidUser){
+    public Residente(String id, String dni, String nombre, String nombreUsuario, String telefono, String direccion, String email, String uid_user){
+        this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.nombreUsuario = nombreUsuario;
         this.telefono = telefono;
         this.direccion = direccion;
         this.email = email;
-        this.uidUser = uidUser;
+        this.uid_user = uid_user;
     }
 
     // GETTERS Y SETTERS
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDni() {
         return dni;
@@ -71,11 +81,11 @@ public class Residente {
         this.email = email;
     }
 
-    public String getUidUser() {
-        return uidUser;
+    public String getUid_user() {
+        return uid_user;
     }
 
-    public void setUidUser(String uidUser) {
-        this.uidUser = uidUser;
+    public void setUid_user(String uid_user) {
+        this.uid_user = uid_user;
     }
 }

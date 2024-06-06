@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Users.ActivitiesUser.ModificarReserva">
+    tools:context=".Admins.ActivitiesAdmin.ModificarReservaAdmin">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/myToolbarModificaReserva"
@@ -23,7 +23,7 @@
         android:padding="29dp">
 
         <Spinner
-            android:id="@+id/spinnerAreaUbicacion"
+            android:id="@+id/spinnerAreaUbiAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
@@ -31,6 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
+
 
         <EditText
             android:id="@+id/etFechaDeReserva"
@@ -45,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerAreaUbicacion" />
+            app:layout_constraintTop_toBottomOf="@+id/spinnerAreaUbiAdmin" />
 
         <EditText
             android:id="@+id/etHoraInicio"

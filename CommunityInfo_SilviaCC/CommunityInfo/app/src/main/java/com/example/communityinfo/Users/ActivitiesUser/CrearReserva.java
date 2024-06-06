@@ -3,11 +3,12 @@ package com.example.communityinfo.Users.ActivitiesUser;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.communityinfo.Modelos.Reserva;
@@ -25,12 +26,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CrearReserva extends AppCompatActivity {
-    private EditText etAreaUbicacion, etFechaDeReserva, etHoraInicio, etHoraFin, etMotivo;
+    private Spinner spinnerAreaUbicacion;
+    private EditText etFechaDeReserva, etHoraInicio, etHoraFin, etMotivo;
     private Button btnCrearReserva;
     private FirebaseFirestore miDb;
     private FirebaseAuth miAuth;
@@ -40,7 +44,7 @@ public class CrearReserva extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_reserva);
 
-        etAreaUbicacion = findViewById(R.id.etAreaUbicacion);
+        spinnerAreaUbicacion = findViewById(R.id.spinnerAreaUbicacion);
         etFechaDeReserva = findViewById(R.id.etFechaDeReserva);
         etHoraInicio = findViewById(R.id.etHoraInicio);
         etHoraFin = findViewById(R.id.etHoraFin);
@@ -51,6 +55,7 @@ public class CrearReserva extends AppCompatActivity {
         miDb = FirebaseFirestore.getInstance();
 
         cifSelected = readFile();
+        cargarListaAreas();
 
         btnCrearReserva.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +66,7 @@ public class CrearReserva extends AppCompatActivity {
     }
 
     private void crearNuevaReserva() {
-        String areaUbicacion = etAreaUbicacion.getText().toString().trim();
+        String areaUbicacion = spinnerAreaUbicacion.getSelectedItem().toString().trim();
         String fechaDeReserva = etFechaDeReserva.getText().toString().trim();
         String horaInicio = etHoraInicio.getText().toString().trim();
         String horaFin = etHoraFin.getText().toString().trim();
@@ -126,7 +131,7 @@ public class CrearReserva extends AppCompatActivity {
                         }
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(this, "Error al verificar conflicto de reservas: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> Toast.makeText(this, "Reserva creada sin verificar", Toast.LENGTH_SHORT).show());
 
         return conflicto[0];
     }
@@ -164,6 +169,26 @@ public class CrearReserva extends AppCompatActivity {
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
         return calendar.getTime();
+    }
+
+    private void cargarListaAreas() {
+        miDb.collection("comunidades").document(cifSelected).collection("areas")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<String> areas = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String area = document.getString("nombreArea");
+                            areas.add(area);
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, areas);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerAreaUbicacion.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(CrearReserva.this, "Error al cargar áreas", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(CrearReserva.this, "Error al obtener áreas: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     @SuppressLint("NewApi")

@@ -4,40 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blueSoft"
-    tools:context=".Users.FragmentsUser.Comunicados">
-
+    tools:context=".Admins.FragmentsAdmin.GestionAdmin">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/myToolbarComunicados"
+            android:id="@+id/myToolbarGestionAdmin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/blueDark"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:title="Comunicados"
+            app:title="Gestón de datos"
             app:titleTextColor="@color/white" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_listadoComunicados"
+            android:id="@+id/listasGestion"
             android:layout_width="match_parent"
-            android:layout_height="669dp"
+            android:layout_height="675dp"
             android:layoutAnimation="@anim/comunicado_animation"
-            tools:ignore="MissingConstraints"
-            tools:listitem="@layout/item_lista_comunicado" />
+            tools:listitem="@layout/item_lista_gestion"/>
 
-        <TextView
-            android:id="@+id/tv_SinDatos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No hay comunicados disponibles"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:textSize="24sp" />
     </LinearLayout>
-
 </FrameLayout>

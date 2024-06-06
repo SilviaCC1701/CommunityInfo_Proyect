@@ -1,4 +1,4 @@
-package com.example.communityinfo.Users.ActivitiesUser;
+package com.example.communityinfo.Admins.ActivitiesAdmin;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,19 +9,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.communityinfo.Admins.ActivitiesAdmin.ModificarReservaAdmin;
 import com.example.communityinfo.Modelos.Reserva;
 import com.example.communityinfo.R;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskCompletionSource;
-import com.google.android.gms.tasks.Tasks;
+import com.example.communityinfo.Users.ActivitiesUser.CrearReserva;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -38,66 +33,40 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ModificarReserva extends AppCompatActivity {
+public class CrearReservaAdmin extends AppCompatActivity {
     private Spinner spinnerAreaUbicacion;
     private EditText etFechaDeReserva, etHoraInicio, etHoraFin, etMotivo;
-    private Button btnModificarReserva;
+    private Button btnCrearReserva;
     private FirebaseFirestore miDb;
     private FirebaseAuth miAuth;
-    private String reservaId;
     private String cifSelected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_modificar_reserva);
+        setContentView(R.layout.activity_crear_reserva_admin);
 
-        spinnerAreaUbicacion = findViewById(R.id.spinnerAreaUbicacion);
+        spinnerAreaUbicacion = findViewById(R.id.spinnerAreaUbiAdmin);
         etFechaDeReserva = findViewById(R.id.etFechaDeReserva);
         etHoraInicio = findViewById(R.id.etHoraInicio);
         etHoraFin = findViewById(R.id.etHoraFin);
         etMotivo = findViewById(R.id.etMotivo);
-        btnModificarReserva = findViewById(R.id.btnModificarReserva);
+        btnCrearReserva = findViewById(R.id.btnCrearReserva);
 
         miAuth = FirebaseAuth.getInstance();
         miDb = FirebaseFirestore.getInstance();
+
         cifSelected = readFile();
         cargarListaAreas();
-        reservaId = getIntent().getStringExtra("reservaId");
 
-        // Metodo que carga los datos de la reserva seleccionada.
-        cargarDatosReserva(reservaId);
-
-        btnModificarReserva.setOnClickListener(new View.OnClickListener() {
+        btnCrearReserva.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Metodo que actualiza los datos de la reserva seleccionada.
-                actualizarReserva();
+                crearNuevaReserva();
             }
         });
     }
 
-    private void cargarDatosReserva(String reservaId) {
-        DocumentReference reservaRef = miDb.collection("comunidades").document(cifSelected).collection("reservas").document(reservaId);
-        reservaRef.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                Reserva reserva = documentSnapshot.toObject(Reserva.class);
-                if (reserva != null) {
-                    setSpinnerSelection(spinnerAreaUbicacion, reserva.getAreaUbicacion());
-                    etFechaDeReserva.setText(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date(reserva.getFechaReserva())));
-                    etHoraInicio.setText(reserva.getHoraInicio());
-                    etHoraFin.setText(reserva.getHoraFin());
-                    etMotivo.setText(reserva.getMotivo());
-                }
-            } else {
-                Toast.makeText(ModificarReserva.this, "Error al cargar los datos de la reserva", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(e -> {
-            Toast.makeText(ModificarReserva.this, "Error al obtener los datos de la reserva: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        });
-    }
-
-    // Metodo que actualiza las Reservas
-    private void actualizarReserva() {
+    private void crearNuevaReserva() {
         String areaUbicacion = spinnerAreaUbicacion.getSelectedItem().toString().trim();
         String fechaDeReserva = etFechaDeReserva.getText().toString().trim();
         String horaInicio = etHoraInicio.getText().toString().trim();
@@ -109,7 +78,6 @@ public class ModificarReserva extends AppCompatActivity {
             return;
         }
 
-        // Parseo de fecha a long milisegundos
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         long fechaReserva;
         try {
@@ -120,33 +88,34 @@ public class ModificarReserva extends AppCompatActivity {
             return;
         }
 
-        // Verificación de confictos con otras reservas
         FirebaseUser user = miAuth.getCurrentUser();
         if (user != null) {
             String usuarioId = user.getUid();
 
-            verificarConflictoReserva(cifSelected, areaUbicacion, fechaReserva, horaInicio, horaFin).addOnCompleteListener(task -> {
-                if (task.isSuccessful() && task.getResult()) {
-                    Toast.makeText(this, "Conflicto con otra reserva en el mismo horario", Toast.LENGTH_SHORT).show();
-                } else {
-                    // Al no tener conflictos de reservas se crea la Reserva.
-                    Reserva reservaActualizada = new Reserva(reservaId, fechaReserva, areaUbicacion, horaInicio, horaFin, motivo, usuarioId);
+            if (verificarConflictoReserva(cifSelected, areaUbicacion, fechaReserva, horaInicio, horaFin)) {
+                Toast.makeText(this, "Conflicto con otra reserva en el mismo horario", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                    miDb.collection("comunidades").document(cifSelected).collection("reservas").document(reservaId)
-                            .set(reservaActualizada)
-                            .addOnSuccessListener(aVoid -> Toast.makeText(ModificarReserva.this, "Reserva actualizada con éxito", Toast.LENGTH_SHORT).show())
-                            .addOnFailureListener(e -> Toast.makeText(ModificarReserva.this, "Error al actualizar la reserva: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-                }
-            }).addOnFailureListener(e -> Toast.makeText(this, "Reserva modificada sin verificar", Toast.LENGTH_SHORT).show());
+            // Al no tener conflictos de reservas se crea la Reserva.
+            Reserva nuevaReserva = new Reserva(null, fechaReserva, areaUbicacion, horaInicio, horaFin, motivo, usuarioId);
+
+            miDb.collection("comunidades").document(cifSelected).collection("reservas")
+                    .add(nuevaReserva)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(CrearReservaAdmin.this, "Reserva creada con éxito", Toast.LENGTH_SHORT).show();
+                        finish();
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(CrearReservaAdmin.this, "Error al crear la reserva: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         }
     }
 
-    private Task<Boolean> verificarConflictoReserva(String cif, String areaUbicacion, long fechaReserva, String horaInicio, String horaFin) {
+    private boolean verificarConflictoReserva(String cif, String areaUbicacion, long fechaReserva, String horaInicio, String horaFin) {
         CollectionReference reservasRef = miDb.collection("comunidades").document(cif).collection("reservas");
         long startOfDay = getStartOfDay(new Date(fechaReserva)).getTime();
         long endOfDay = getEndOfDay(new Date(fechaReserva)).getTime();
 
-        TaskCompletionSource<Boolean> tcs = new TaskCompletionSource<>();
+        boolean[] conflicto = {false};
 
         reservasRef.whereEqualTo("areaUbicacion", areaUbicacion)
                 .whereGreaterThanOrEqualTo("fechaReserva", startOfDay)
@@ -154,22 +123,18 @@ public class ModificarReserva extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        boolean conflicto = false;
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             Reserva reserva = doc.toObject(Reserva.class);
-                            if (!reserva.getId().equals(reservaId) && hayConflictoDeHorarios(reserva, horaInicio, horaFin)) {
-                                conflicto = true;
+                            if (hayConflictoDeHorarios(reserva, horaInicio, horaFin)) {
+                                conflicto[0] = true;
                                 break;
                             }
                         }
-                        tcs.setResult(conflicto);
-                    } else {
-                        tcs.setException(task.getException());
                     }
                 })
-                .addOnFailureListener(tcs::setException);
+                .addOnFailureListener(e -> Toast.makeText(this, "Reserva creada sin verificar", Toast.LENGTH_SHORT).show());
 
-        return tcs.getTask();
+        return conflicto[0];
     }
 
     private boolean hayConflictoDeHorarios(Reserva reserva, String horaInicio, String horaFin) {
@@ -221,20 +186,10 @@ public class ModificarReserva extends AppCompatActivity {
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerAreaUbicacion.setAdapter(adapter);
                     } else {
-                        Toast.makeText(ModificarReserva.this, "Error al cargar áreas", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CrearReservaAdmin.this, "Error al cargar áreas", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .addOnFailureListener(e -> Toast.makeText(ModificarReserva.this, "Error al obtener áreas: " + e.getMessage(), Toast.LENGTH_SHORT).show());
-    }
-
-    private void setSpinnerSelection(Spinner spinner, String value) {
-        ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
-        for (int position = 0; position < adapter.getCount(); position++) {
-            if (adapter.getItem(position).equals(value)) {
-                spinner.setSelection(position);
-                return;
-            }
-        }
+                .addOnFailureListener(e -> Toast.makeText(CrearReservaAdmin.this, "Error al obtener áreas: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     @SuppressLint("NewApi")

@@ -121,8 +121,10 @@ public class Registro extends AppCompatActivity {
     }
 
     private void verificarResidente(String nombre, String nombreUsuario, String email, String password, String cifComunidad) {
+        // Verificamos si la persona pertenece a la comunidad indicada.
         miDb.collection("comunidades").document(cifComunidad)
                 .collection("residentes")
+                .whereEqualTo("nombre", nombre)
                 .whereEqualTo("nombreUsuario", nombreUsuario)
                 .whereEqualTo("email", email)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -154,7 +156,7 @@ public class Registro extends AppCompatActivity {
                     FirebaseUser user = miAuth.getCurrentUser();
                     if (user != null) {
                         String uid = user.getUid();
-                        guardarInformacionAdicionalEnFirestore(nombre, nombreUsuario, email, cifComunidad, uid, residenteId);
+                        guardarInformacionAdicionalEnFirestore(email, cifComunidad, uid, residenteId);
                     }
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
@@ -167,11 +169,8 @@ public class Registro extends AppCompatActivity {
         });
     }
 
-    private void guardarInformacionAdicionalEnFirestore(String nombre, String nombreUsuario, String email, String cifComunidad, String uid, String residenteId) {
+    private void guardarInformacionAdicionalEnFirestore(String email, String cifComunidad, String uid, String residenteId) {
         Map<String, Object> userData = new HashMap<>();
-        userData.put("nombre", nombre);
-        userData.put("nombreUsuario", nombreUsuario);
-        userData.put("CifComunidad", cifComunidad);
         userData.put("email", email);
         userData.put("rol", "user"); // Asumiendo que el rol por defecto es "user"
 
